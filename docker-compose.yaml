@@ -3,4 +3,5 @@ services:
     web:
         build: .
         volumes:
-            - ./src:/var/src/track
+            - ./src/server:/var/src/track/server
+            - ./src/client:/var/src/track/client

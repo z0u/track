@@ -16,13 +16,19 @@ RUN DEBIAN_FRONTEND=noninteractive \
     which node || apt-get install -y nodejs-legacy
     # rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /var/src/track/{server,client}
+RUN mkdir -p /var/src/track/client_deps
 WORKDIR /var/src/track
 
 # COPY src/server/requirements.txt /var/src/track/server/
-# RUN pip3 install -vr server/requirements.txt
-#
-# COPY package.conf /var/src/track/package.json
-# RUN npm
-# #
-# # COPY src/ /var/src/track/
+# RUN cd server && \
+#     pip3 install -vr requirements.txt
+
+COPY src/client/package.json /var/src/track/client_deps/
+RUN cd client_deps && \
+    npm install
+
+COPY src/server /var/src/track/server/
+COPY src/client /var/src/track/client/
+
+# Build/transpile web resources
+RUN ./client/node_modules/gulp/bin/gulp.js build
