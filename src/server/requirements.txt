@@ -1,2 +1,6 @@
-authomatic~=0.1.0.post1
-Flask~=0.11.1
+alembic~=0.8.7
+pyyaml~=3.11
+sqlalchemy~=1.1.0b3
+tornado~=4.4.1
+
+pudb

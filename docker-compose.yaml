@@ -5,3 +5,8 @@ services:
         volumes:
             - ./src/server:/var/src/track/server
             - ./src/client:/var/src/track/client
+        links:
+            - postgres:postgres
+
+    postgres:
+        image: postgres:9
